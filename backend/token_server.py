@@ -8,9 +8,15 @@ from backend.db import get_db
 load_dotenv()
 
 
+# ALLOWED_ORIGIN: set this env var on Render to your Vercel frontend URL
+# e.g. https://carevoice-ai.vercel.app
+# Defaults to * for local development only
+ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "*")
+
+
 def cors_headers():
     return {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     }
