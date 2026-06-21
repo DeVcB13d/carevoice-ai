@@ -82,7 +82,7 @@ function RoomEventListener({
   useEffect(() => {
     if (!room) return;
 
-    const handleDataReceived = (payload: Uint8Array, participant: any, kind: any, topic?: string) => {
+    const handleDataReceived = (payload: Uint8Array, _participant: any, _kind: any, topic?: string) => {
       const decoder = new TextDecoder();
       const text = decoder.decode(payload);
       try {
@@ -122,7 +122,7 @@ function App() {
   const [isLoadingSlots, setIsLoadingSlots] = useState(false);
   const [slotDate, setSlotDate] = useState('');
   const [selectedSlotId, setSelectedSlotId] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   // New session & call summary states
   const [currentCallId, setCurrentCallId] = useState<string | null>(null);
@@ -1211,7 +1211,7 @@ function OfflineVoiceControl({ isConnecting, onStartCall }: OfflineVoiceControlP
   );
 }
 
-function ActiveTranscripts({ userProfile }: { userProfile: UserProfile }) {
+function ActiveTranscripts({ userProfile: _userProfile }: { userProfile: UserProfile }) {
   const rawTranscriptions = useTranscriptions();
   const scrollRef = useRef<HTMLDivElement>(null);
   const transcriptItems = rawTranscriptions || [];
