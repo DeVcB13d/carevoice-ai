@@ -147,7 +147,7 @@ function App() {
   const fetchAppointments = async (phone: string) => {
     try {
       setIsLoadingAppointments(true);
-      const res = await fetch(`http://localhost:8080/api/appointments?phone=${encodeURIComponent(phone)}`);
+      const res = await fetch(`https://carevoice-token-server.onrender.com/api/appointments?phone=${encodeURIComponent(phone)}`);
       if (res.ok) {
         const data = await res.json();
         setAppointments(data.appointments || []);
@@ -163,7 +163,7 @@ function App() {
   const fetchCalendarSlots = async (date: string) => {
     try {
       setIsLoadingCalendarSlots(true);
-      const res = await fetch(`http://localhost:8080/api/slots?date=${encodeURIComponent(date)}`);
+      const res = await fetch(`https://carevoice-token-server.onrender.com/api/slots?date=${encodeURIComponent(date)}`);
       if (res.ok) {
         const data = await res.json();
         setCalendarSlots(data.slots || []);
@@ -191,7 +191,7 @@ function App() {
     if (!window.confirm('Are you sure you want to book this appointment slot?')) return;
 
     try {
-      const res = await fetch('http://localhost:8080/api/appointments/book', {
+      const res = await fetch('https://carevoice-token-server.onrender.com/api/appointments/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userProfile.id, slot_id: slotId }),
@@ -254,7 +254,7 @@ function App() {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/token?room=${encodeURIComponent(generatedRoom)}&identity=${encodeURIComponent(
+        `https://carevoice-token-server.onrender.com/token?room=${encodeURIComponent(generatedRoom)}&identity=${encodeURIComponent(
           "patient-" + randomSuffix
         )}`
       );
@@ -299,7 +299,7 @@ function App() {
     const interval = setInterval(async () => {
       attempts++;
       try {
-        const res = await fetch(`http://localhost:8080/api/summary?call_id=${encodeURIComponent(callId)}`);
+        const res = await fetch(`https://carevoice-token-server.onrender.com/api/summary?call_id=${encodeURIComponent(callId)}`);
         if (res.ok) {
           const data = await res.json();
           if (data.status === 'completed') {
@@ -318,7 +318,7 @@ function App() {
               // Always fetch FRESH appointments directly from API (summary may have been
               // generated before appointments were booked during the call)
               try {
-                const apptRes = await fetch(`http://localhost:8080/api/appointments?phone=${encodeURIComponent(data.user.phone)}`);
+                const apptRes = await fetch(`https://carevoice-token-server.onrender.com/api/appointments?phone=${encodeURIComponent(data.user.phone)}`);
                 if (apptRes.ok) {
                   const apptData = await apptRes.json();
                   const freshAppointments = apptData.appointments || [];
@@ -361,7 +361,7 @@ function App() {
     if (!window.confirm('Are you sure you want to cancel this appointment?')) return;
 
     try {
-      const res = await fetch('http://localhost:8080/api/appointments/cancel', {
+      const res = await fetch('https://carevoice-token-server.onrender.com/api/appointments/cancel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ appointment_id: appointmentId }),
@@ -395,7 +395,7 @@ function App() {
   const fetchAvailableSlots = async (date: string) => {
     try {
       setIsLoadingSlots(true);
-      const res = await fetch(`http://localhost:8080/api/slots?date=${encodeURIComponent(date)}`);
+      const res = await fetch(`https://carevoice-token-server.onrender.com/api/slots?date=${encodeURIComponent(date)}`);
       if (res.ok) {
         const data = await res.json();
         setAvailableSlots(data.slots || []);
@@ -420,7 +420,7 @@ function App() {
     if (!isRescheduling || !selectedSlotId) return;
 
     try {
-      const res = await fetch('http://localhost:8080/api/appointments/modify', {
+      const res = await fetch('https://carevoice-token-server.onrender.com/api/appointments/modify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -732,7 +732,7 @@ function DashboardContent({
     if (hasError) return;
 
     try {
-      const res = await fetch('http://localhost:8080/api/identify', {
+      const res = await fetch('https://carevoice-token-server.onrender.com/api/identify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: trimmedName, phone: trimmedPhone }),
